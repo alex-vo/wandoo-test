@@ -1,0 +1,53 @@
+<button (click)="authService.logout()">logout</button>
+<p *ngIf="loans.length > 0">Payments can be created for loans in status 'IN_PROGRESS'. For loan to get into status
+  'IN_PROGRESS' someone should invest in it</p>
+<table *ngIf="loans.length > 0" border="1">
+  <tr>
+    <td>Debtor name</td>
+    <td>Amount</td>
+    <td>Amount to return</td>
+    <td>Investor interest %</td>
+    <td>Status</td>
+    <td>Action</td>
+  </tr>
+  <tr *ngFor="let loan of loans">
+    <td *ngIf="editLoanId != loan.id">{{loan.debtorName}}</td>
+    <td *ngIf="editLoanId == loan.id"><input type="text" [(ngModel)]="loan.debtorName"/></td>
+    <td *ngIf="editLoanId != loan.id">{{loan.amount}}</td>
+    <td *ngIf="editLoanId == loan.id"><input type="number" [(ngModel)]="loan.amount"/></td>
+    <td *ngIf="editLoanId != loan.id">{{loan.amountToReturn}}</td>
+    <td *ngIf="editLoanId == loan.id"><input type="number" [(ngModel)]="loan.amountToReturn"/></td>
+    <td *ngIf="editLoanId != loan.id">{{loan.investorInterest}}</td>
+    <td *ngIf="editLoanId == loan.id"><input type="number" [(ngModel)]="loan.investorInterest"/></td>
+    <td>{{loan.status}}</td>
+    <td>
+      <span *ngIf="editLoanId != loan.id">
+        <button (click)="toggleUpdateForm(loan.id)" *ngIf="loan.status == 'NEW'">edit loan</button>
+        <button (click)="deleteLoan(loan.id)" *ngIf="loan.status == 'NEW'">delete loan</button>
+        <button (click)="setFailedStatus(loan.id)" *ngIf="loan.status == 'IN_PROGRESS'">set loan status to failed</button>
+      </span>
+      <span *ngIf="editLoanId == loan.id">
+        <button (click)="updateLoan(loan)">update loan</button>
+        <button (click)="ngOnInit()">cancel</button>
+      </span>
+      <a [routerLink]="['/admin/loan/' + loan.id]" *ngIf="loan.status == 'IN_PROGRESS'">payments</a>
+    </td>
+  </tr>
+</table>
+<div>
+  <button *ngIf="!showNewLoanForm" (click)="toggleCreateForm()">Add new loan</button>
+  <div *ngIf="showNewLoanForm">
+    <label for="debtorName">Debtor name</label>
+    <input type="text" name="debtorName" id="debtorName" placeholder="Debtor name" [(ngModel)]="newLoan.debtorName"/><br>
+    <label for="amount">Amount</label>
+    <input type="number" name="amount" id="amount" placeholder="Amount" [(ngModel)]="newLoan.amount"/><br>
+    <label for="amountToReturn">Amount to return</label>
+    <input type="number" name="amountToReturn" id="amountToReturn" placeholder="Amount to return"
+           [(ngModel)]="newLoan.amountToReturn"/><br>
+    <label for="investorInterest">Investor interest %</label>
+    <input type="number" name="investorInterest" id="investorInterest" placeholder="Investor interest %"
+           [(ngModel)]="newLoan.investorInterest"/><br>
+    <button (click)="createLoan()">submit</button>
+    <button (click)="ngOnInit()">cancel</button>
+  </div>
+</div>
