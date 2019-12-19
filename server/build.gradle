@@ -41,7 +41,7 @@ dockerCompose {
 
 bootRun {
     def profile = (project.hasProperty('profile') ? project.findProperty('profile') : 'prod')
-    println profile
+    println 'Current profile is ' + profile
     args = ["--spring.profiles.active=" + profile]
     dependsOn 'databaseComposeUp'
     dependsOn 'copyFrontendFiles'
@@ -49,7 +49,7 @@ bootRun {
 
 task copyFrontendFiles {
     copy {
-        String fromDir = "${rootDir}${File.separator}..${File.separator}company-app${File.separator}dist${File.separator}company-app"
+        String fromDir = "${rootDir}${File.separator}..${File.separator}client-dist${File.separator}loan-app-client"
         String intoDir = "${rootDir}${File.separator}src${File.separator}main${File.separator}resources${File.separator}static"
         println '-----------------------------------------------'
         println "Copying frontend files from ${fromDir} into ${intoDir} "
