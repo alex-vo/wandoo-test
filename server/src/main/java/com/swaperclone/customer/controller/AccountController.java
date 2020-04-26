@@ -1,6 +1,6 @@
 package com.swaperclone.customer.controller;
 
-import com.swaperclone.config.MnCloneAuthenticationToken;
+import com.swaperclone.config.SwaperCloneAuthenticationToken;
 import com.swaperclone.customer.dto.AccountInfoDTO;
 import com.swaperclone.customer.dto.MoneyRequestDTO;
 import com.swaperclone.customer.service.AccountService;
@@ -23,17 +23,17 @@ public class AccountController {
     }
 
     @GetMapping
-    public AccountInfoDTO getAccountInfo(MnCloneAuthenticationToken auth) {
+    public AccountInfoDTO getAccountInfo(SwaperCloneAuthenticationToken auth) {
         return accountService.getAccountInfo(auth.getUserId());
     }
 
     @PostMapping("topUp")
-    public void topUp(MnCloneAuthenticationToken auth, @Valid @RequestBody MoneyRequestDTO moneyRequestDTO) {
+    public void topUp(SwaperCloneAuthenticationToken auth, @Valid @RequestBody MoneyRequestDTO moneyRequestDTO) {
         accountService.topUp(auth.getUserId(), moneyRequestDTO.getAmount());
     }
 
     @PostMapping("withdraw")
-    public void withdraw(MnCloneAuthenticationToken auth, @Valid @RequestBody MoneyRequestDTO moneyRequestDTO) {
+    public void withdraw(SwaperCloneAuthenticationToken auth, @Valid @RequestBody MoneyRequestDTO moneyRequestDTO) {
         accountService.withdraw(auth.getUserId(), moneyRequestDTO.getAmount());
     }
 

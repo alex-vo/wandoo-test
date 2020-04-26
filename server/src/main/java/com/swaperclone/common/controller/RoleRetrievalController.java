@@ -1,6 +1,6 @@
 package com.swaperclone.common.controller;
 
-import com.swaperclone.config.MnCloneAuthenticationToken;
+import com.swaperclone.config.SwaperCloneAuthenticationToken;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,7 +14,7 @@ import java.util.Map;
 @RequestMapping("/api/role")
 public class RoleRetrievalController {
     @GetMapping
-    public Map<String, String> retrieveRole(MnCloneAuthenticationToken auth) {
+    public Map<String, String> retrieveRole(SwaperCloneAuthenticationToken auth) {
         String role = auth.getAuthorities().toArray()[0].toString();
         return new HashMap<String, String>() {{
             put("role", role);

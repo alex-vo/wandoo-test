@@ -40,12 +40,12 @@ public class SwaperCloneAuthenticationProvider implements AuthenticationProvider
         }
 
         if (StringUtils.equals(username, adminUserName) && passwordEncoder.matches(password, adminEncodedPassword)) {
-            return new MnCloneAuthenticationToken(username, password, Collections.singletonList(new SimpleGrantedAuthority("ROLE_COMPANY_ADMIN")), -1L);
+            return new SwaperCloneAuthenticationToken(username, password, Collections.singletonList(new SimpleGrantedAuthority("ROLE_COMPANY_ADMIN")), -1L);
         }
 
         Optional<User> customer = userRepository.findRegisteredByEmail(username);
         if (customer.isPresent() && passwordEncoder.matches(password, customer.get().getEncodedPassword())) {
-            return new MnCloneAuthenticationToken(username, password, Collections.singletonList(new SimpleGrantedAuthority("ROLE_CUSTOMER")), customer.get().getId());
+            return new SwaperCloneAuthenticationToken(username, password, Collections.singletonList(new SimpleGrantedAuthority("ROLE_CUSTOMER")), customer.get().getId());
         }
 
         throw new UsernameNotFoundException("user not found");

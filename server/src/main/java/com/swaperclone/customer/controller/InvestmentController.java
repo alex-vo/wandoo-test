@@ -1,6 +1,6 @@
 package com.swaperclone.customer.controller;
 
-import com.swaperclone.config.MnCloneAuthenticationToken;
+import com.swaperclone.config.SwaperCloneAuthenticationToken;
 import com.swaperclone.customer.dto.InvestmentDTO;
 import com.swaperclone.customer.service.InvestmentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,12 +23,12 @@ public class InvestmentController {
     }
 
     @GetMapping
-    public Page<InvestmentDTO> getInvestments(MnCloneAuthenticationToken auth, @PageableDefault(page = 0, size = 50) Pageable pageable) {
+    public Page<InvestmentDTO> getInvestments(SwaperCloneAuthenticationToken auth, @PageableDefault(page = 0, size = 50) Pageable pageable) {
         return investmentService.getInvestments(auth.getUserId(), pageable);
     }
 
     @PostMapping("{loanId}")
-    public void invest(MnCloneAuthenticationToken auth, @PathVariable Long loanId) {
+    public void invest(SwaperCloneAuthenticationToken auth, @PathVariable Long loanId) {
         investmentService.invest(auth.getUserId(), loanId);
     }
 
